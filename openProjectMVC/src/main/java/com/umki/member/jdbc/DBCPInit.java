@@ -37,7 +37,7 @@ public class DBCPInit extends HttpServlet {
 	}
 
 	private void initConnectionPool() {
-		String jdbcDriver = "jdbc:mysql://localhost:3306/book_ex?serverTimezone=UTC&useSSL=false";
+		String jdbcDriver = "jdbc:mysql://localhost:3306/book_ex?serverTimezone=UTC&useSSL=false&characterEncoding=utf8";
 		String username = "root";
 		String pw = "1234";
 

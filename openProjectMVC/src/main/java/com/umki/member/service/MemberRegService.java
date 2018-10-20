@@ -2,6 +2,7 @@ package com.umki.member.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -32,10 +33,11 @@ public class MemberRegService {
 		String uploadUri = "/uploadfile/userphoto";
 		// uploadUri 경로의 시스템경로
 		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
+		System.out.println(dir);
 		
 		if(!memberInfo.getPhotoFile().isEmpty()) {
 			imgName = memberInfo.getUserId()+"_"+memberInfo.getPhotoFile().getOriginalFilename();
-			
+
 			// 물리적 저장
 			memberInfo.getPhotoFile().transferTo(new File(dir, imgName));
 			
