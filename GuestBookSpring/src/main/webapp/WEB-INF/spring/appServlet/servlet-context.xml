@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -23,8 +24,24 @@
 	
 	<context:component-scan base-package="com.bitcamp.gb" />
 	
+	<beans:bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<beans:property name="driverClass"
+			value="com.mysql.jdbc.Driver" />
+		<beans:property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/book_ex?characterEncoding=utf8" />
+		<beans:property name="user" value="root" />
+		<beans:property name="password" value="1234" />
+	</beans:bean>
+
+	<!-- jdbcTemplte 빈 등록 -->
+	<beans:bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource" />
+	
 	<!-- DAO 빈 등록 -->
 	<beans:bean id="messageDao" class="com.bitcamp.gb.dao.MessageDao"/>
+	<beans:bean id="jdbcTemplateMemberDao" class = "com.bitcamp.gb.dao.jdbcTemplateMemberDao" />
 	
 	<!-- 서비스 빈 등록 -->
 	<beans:bean id="getMessageListService" class="com.bitcamp.gb.service.GetMessageListService"/>

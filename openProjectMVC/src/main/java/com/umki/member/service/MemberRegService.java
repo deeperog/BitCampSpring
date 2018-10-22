@@ -9,15 +9,20 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.umki.member.dao.JdbcTemplateMemberDao;
 import com.umki.member.dao.MemberDao;
 import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.jdbc.JdbcUtil;
 import com.umki.member.model.MemberInfo;
 
 public class MemberRegService {
+	/*@Autowired
+	private MemberDao memberDao;*/
+	
 	@Autowired
-	private MemberDao memberDao;
+	private JdbcTemplateMemberDao memberDao;
 
 	private Connection conn;
 
@@ -47,7 +52,8 @@ public class MemberRegService {
 		
 		try {
 			conn.setAutoCommit(false);
-			resultCnt = memberDao.insertMemberInfo(conn/*컨넥션을 넘기는 이유는 트랜잭션 처리 때문에*/, memberInfo);
+//			resultCnt = memberDao.insertMemberInfo(conn/*컨넥션을 넘기는 이유는 트랜잭션 처리 때문에*/, memberInfo);
+			resultCnt = memberDao.insertMemberInfo(memberInfo);
 			conn.commit();
 		} catch (Exception e) {
 			JdbcUtil.rollback(null);

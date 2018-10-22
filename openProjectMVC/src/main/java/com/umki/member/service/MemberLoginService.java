@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.umki.member.dao.JdbcTemplateMemberDao;
 import com.umki.member.dao.MemberDao;
 import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.model.MemberInfo;
@@ -15,7 +16,7 @@ import com.umki.member.model.MemberInfo;
 public class MemberLoginService {
 
 	@Autowired
-	private MemberDao memberDao;
+	private JdbcTemplateMemberDao memberDao;
 
 	public boolean login(String id, String pw, HttpSession session) throws SQLException {
 
@@ -23,7 +24,7 @@ public class MemberLoginService {
 
 		boolean result = false;
 
-		MemberInfo memberInfo = memberDao.getMemberInfo(conn, id);
+		MemberInfo memberInfo = memberDao.getMemberInfo(id);
 
 		// 비밀번호 비교
 		if (memberInfo != null && memberInfo.getPassword().equals(pw)) {

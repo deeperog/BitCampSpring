@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bitcamp.gb.dao.MessageDao;
+import com.bitcamp.gb.dao.jdbcTemplateMemberDao;
 import com.bitcamp.gb.jdbc.ConnectionProvider;
 import com.bitcamp.gb.jdbc.JdbcUtil;
 import com.bitcamp.gb.model.Message;
 
 public class DeleteMessageService {
 	@Autowired
-	MessageDao messageDao;
+	jdbcTemplateMemberDao messageDao;
 
 	public void deleteMessage(int messageId, String password)
 			throws ServiceException, InvalidMessagePassowrdException, MessageNotFoundException {
@@ -20,7 +21,7 @@ public class DeleteMessageService {
 		try {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
-			Message message = messageDao.select(conn, messageId);
+			Message message = messageDao.select(messageId);
 			if (message == null) {
 				throw new MessageNotFoundException("메시지가 없습니다:" + messageId);
 			}
@@ -30,7 +31,7 @@ public class DeleteMessageService {
 			if (!message.getPassword().equals(password)) {
 				throw new InvalidMessagePassowrdException();
 			}
-			messageDao.delete(conn, messageId);
+			messageDao.delete(messageId);
 			conn.commit();
 		} catch (SQLException ex) {
 			JdbcUtil.rollback(conn);

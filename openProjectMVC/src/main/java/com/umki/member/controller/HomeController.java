@@ -1,4 +1,4 @@
-package com.umki.mvc;
+package com.umki.member.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

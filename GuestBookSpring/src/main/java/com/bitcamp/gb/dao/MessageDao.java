@@ -13,20 +13,15 @@ import com.bitcamp.gb.jdbc.JdbcUtil;
 import com.bitcamp.gb.model.Message;
 
 public class MessageDao {
-	private static MessageDao dao = new MessageDao();
 
 	public int insert(Connection conn, Message message) throws SQLException {
-		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
-		// int resultCnt = 0;
 		try {
 			pstmt = conn.prepareStatement("insert into guestbook_message "
 					+ "(guest_name, password, message) " + "values (?, ?, ?)");
 			pstmt.setString(1, message.getGuestName());
 			pstmt.setString(2, message.getPassword());
 			pstmt.setString(3, message.getMessage());
-			// resultCnt = pstmt.executeUpdate();
-			// return resultCnt;
 			return pstmt.executeUpdate();
 		} finally {
 			JdbcUtil.close(pstmt);
@@ -51,14 +46,10 @@ public class MessageDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			// pstmt = conn.prepareStatement("select message_id, guest_name, password,
-			// message from ( "
-			// + " select rownum rnum, message_id, guest_name, password, message from ( "
-			// + " select * from guestbook_message m order by m.message_id desc "
-			// + " ) where rownum <= ? ) where rnum >= ?");
+
 			pstmt = conn.prepareStatement(
 					"select * from guestbook_message order by message_id desc limit ?, ?");
-			pstmt.setInt(1, endRow);
+			pstmt.setInt(1, firstRow-1);
 			pstmt.setInt(2, 3);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
