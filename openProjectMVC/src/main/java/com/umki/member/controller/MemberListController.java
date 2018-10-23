@@ -15,7 +15,7 @@ public class MemberListController {
 	@Autowired
 	private MemberListService listService;
 	
-	@RequestMapping("/member/list")
+	@RequestMapping("/member/memberList")
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("member/memberList");

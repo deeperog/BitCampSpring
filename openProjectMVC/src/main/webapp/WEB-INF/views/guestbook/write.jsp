@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1> 감사합니다 </h1>
-	<a href="/mvc">홈으로 돌아가기</a>
+<h1>글쓰기 완료</h1>
+<h3> <a href="list">방명록 리스트</a></h3>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -11,11 +11,22 @@
 h2 {
 	padding: 10px;
 }
+
 table {
 	margin-top: 10px;
 }
+
 td {
 	padding: 10px 20px;
+}
+
+#memberPhoto {
+	background-size: 100%;
+	width: 150px;
+	height: 150px;
+	border: 1px solid #333333;
+	border-radius: 75px;
+	margin: 20px 0;
 }
 </style>
 </head>
@@ -34,19 +45,27 @@ td {
 				<td>사진</td>
 				<td>관리</td>
 			</tr>
-			
+
 			<c:forEach items="${list}" var="list">
-	
-			<tr>
-				<td>${list.userId}</td>
-				<td>${list.password}</td>
-				<td>${list.userName}</td>
-				<td>${list.userPhoto}</td>
-				<td><a href="update/${list.userId}">수정</a>
-					<a href="delete/${list.userId}">삭제</a></td>
-			</tr>
+
+				<tr>
+					<td>${list.userId}</td>
+					<td>${list.password}</td>
+					<td>${list.userName}</td>
+					<td><img id="memberPhoto"
+						src="<%= request.getContextPath()%>/uploadfile/userphoto/${list.userPhoto}"
+						alt="" /></td>
+					<c:choose>
+						<c:when test="${loginInfo.userId == list.userId}">
+							<td><a href="update/${list.userId}">수정</a> <a href="delete?id=${list.userId}">삭제</a></td>
+						</c:when>
+						<c:otherwise>
+							<td></td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
 			</c:forEach>
-			
+
 		</table>
 
 

@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>회원가입이 정상적으로 처리되지 않았습니다.</h1>
+<h1>정상적으로 처리되지 않았습니다.</h1>
 
-<h3><a href="memberReg">회원가입</a></h3>
+<h3><a href="/mvc">홈으로 돌아가기</a></h3>
 </body>
 </html>

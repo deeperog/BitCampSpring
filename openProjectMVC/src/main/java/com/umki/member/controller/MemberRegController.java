@@ -35,6 +35,7 @@ public class MemberRegController {
 		
 		try {
 			int resultCnt = regService.memberReg(member, request);
+			System.out.println("controller 신규 회원의 IDX값"+member.getIdx());
 			if(resultCnt==0) {
 				modelAndView.setViewName("member/regFail");
 			}
@@ -45,6 +46,9 @@ public class MemberRegController {
 			modelAndView.setViewName("member/regFail");
 			e.printStackTrace();
 		} catch (IOException e) {
+			modelAndView.setViewName("member/regFail");
+			e.printStackTrace();
+		} catch (Exception e) {
 			modelAndView.setViewName("member/regFail");
 			e.printStackTrace();
 		}

@@ -1,10 +1,8 @@
 package com.bitcamp.gb.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -47,14 +45,14 @@ public class jdbcTemplateMemberDao {
 
 	}
 
-	private Message makeMessageFromResultSet(ResultSet rs) throws SQLException {
-		Message message = new Message();
-		message.setId(rs.getInt("message_id"));
-		message.setGuestName(rs.getString("guest_name"));
-		message.setPassword(rs.getString("password"));
-		message.setMessage(rs.getString("message"));
-		return message;
-	}
+//	private Message makeMessageFromResultSet(ResultSet rs) throws SQLException {
+//		Message message = new Message();
+//		message.setId(rs.getInt("message_id"));
+//		message.setGuestName(rs.getString("guest_name"));
+//		message.setPassword(rs.getString("password"));
+//		message.setMessage(rs.getString("message"));
+//		return message;
+//	}
 
 	public Message select(int messageId) throws SQLException {
 		String sql = "select * from guestbook_message where message_id = ?";

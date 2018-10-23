@@ -1,4 +1,4 @@
-package com.bitcamp.gb.controller;
+package com.umki.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitcamp.gb.model.MessageListView;
-import com.bitcamp.gb.service.GetMessageListService;
-import com.bitcamp.gb.service.ServiceException;
+import com.umki.member.model.MessageListView;
+import com.umki.member.service.GetMessageListService;
+import com.umki.member.service.ServiceException;
 
 @Controller
 public class GuestBookListController {

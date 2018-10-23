@@ -3,6 +3,7 @@ package com.umki.member.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MemberInfo {
+	private int idx;
 	private String userId;
 	private String password;
 	private String userName;
@@ -13,6 +14,12 @@ public class MemberInfo {
 	public String toString() {
 		return "MemberInfo [userId=" + userId + ", password=" + password + ", userName=" + userName + ", userPhoto="
 				+ userPhoto + ", photoFile=" + photoFile + "]";
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
 	public MultipartFile getPhotoFile() {
 		return photoFile;

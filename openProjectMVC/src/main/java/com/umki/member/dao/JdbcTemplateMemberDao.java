@@ -8,9 +8,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
-import com.umki.member.jdbc.JdbcUtil;
 import com.umki.member.model.MemberInfo;
 
 public class JdbcTemplateMemberDao {
@@ -20,9 +22,28 @@ public class JdbcTemplateMemberDao {
 	public int insertMemberInfo(MemberInfo memberInfo) throws SQLException {
 		String insert_sql = "insert into MEMBER (userid, password, username, userphoto) values (?, ?, ?, ?)";
 		int resultCnt = 0;
+		
+		KeyHolder keyholder = new GeneratedKeyHolder();
+		
+		resultCnt = jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement(insert_sql, new String[] {"idx"});
+				pstmt.setString(1, memberInfo.getUserId());
+				pstmt.setString(2, memberInfo.getPassword());
+				pstmt.setString(3, memberInfo.getUserName());
+				pstmt.setString(4, memberInfo.getUserPhoto());
+				
+				return pstmt;
+			}
+		}, keyholder);
+		
+		Number keyValue = keyholder.getKey();
+		
+		memberInfo.setIdx(keyValue.intValue());
 
-		resultCnt = jdbcTemplate.update(insert_sql, memberInfo.getUserId(), memberInfo.getPassword(),
-				memberInfo.getUserName(), memberInfo.getUserPhoto());
+//		resultCnt = jdbcTemplate.update(insert_sql, memberInfo.getUserId(), memberInfo.getPassword(),
+//				memberInfo.getUserName(), memberInfo.getUserPhoto());
 
 		return resultCnt;
 	}
@@ -64,14 +85,25 @@ public class JdbcTemplateMemberDao {
 				return memberInfo;
 			}
 		});
-		
 		return results;
 	}
 
-	public int updateMember(String id) {
+	public int updateMemberInfo(MemberInfo memberInfo, String id) throws SQLException{
+		String sql = "update member	set userId = ?, password = ?, username = ?, userphoto = ? where userid = ?";
+		int resultCnt = 0;
 		
-
-		return 0;
+		resultCnt = jdbcTemplate.update(sql, memberInfo.getUserId(), memberInfo.getPassword(), memberInfo.getUserName(), memberInfo.getUserPhoto(), id);
+		
+		return resultCnt;
 	}
+
+	public int delete(String id, String password) {
+		String sql = "delete from member where userid=? and password=?";
+		int resultCnt = 0;
+		
+		resultCnt = jdbcTemplate.update(sql, id, password);
+		return resultCnt;
+	}
+
 
 }

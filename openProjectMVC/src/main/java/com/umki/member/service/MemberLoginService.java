@@ -1,26 +1,20 @@
 package com.umki.member.service;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.umki.member.dao.JdbcTemplateMemberDao;
-import com.umki.member.dao.MemberDao;
-import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.model.MemberInfo;
 
 public class MemberLoginService {
 
 	@Autowired
 	private JdbcTemplateMemberDao memberDao;
-
+	@Transactional
 	public boolean login(String id, String pw, HttpSession session) throws SQLException {
 
-		Connection conn = ConnectionProvider.getConnection();
 
 		boolean result = false;
 
