@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bitcamp.gb.jdbc.JdbcUtil;
-import com.bitcamp.gb.model.Message;
+import com.umki.member.jdbc.JdbcUtil;
+import com.umki.member.model.Message;
 
 public class MessageDao {
 

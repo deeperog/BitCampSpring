@@ -101,4 +101,10 @@
 		class="com.umki.member.service.MemberUpdateService" />
 	<beans:bean id="memberDeleteService"
 		class="com.umki.member.service.MemberDeleteService" />
+		
+<!-- 	방명록    -->
+	<beans:bean id="getMessageListService" class="com.umki.member.service.GetMessageListService"/>
+	<beans:bean id="writeMessageService" class="com.umki.member.service.WriteMessageService"/>
+	<beans:bean id="deleteMessageService" class="com.umki.member.service.DeleteMessageService"/>
+	<beans:bean id="getViewService" class="com.umki.member.service.GetViewService" />
 </beans:beans>

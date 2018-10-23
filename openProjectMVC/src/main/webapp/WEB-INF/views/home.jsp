@@ -6,9 +6,10 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	<a href="guest/list">GuestBook List</a>  <br />
+	<a href="guest/write">write message</a>  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+
 </body>
 </html>

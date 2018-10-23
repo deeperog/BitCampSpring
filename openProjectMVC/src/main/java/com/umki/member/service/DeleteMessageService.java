@@ -5,13 +5,14 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.umki.member.dao.JdbcTemplateMemberDao;
 import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.jdbc.JdbcUtil;
 import com.umki.member.model.Message;
 
 public class DeleteMessageService {
 	@Autowired
-	jdbcTemplateMemberDao messageDao;
+	JdbcTemplateMemberDao messageDao;
 
 	public void deleteMessage(int messageId, String password)
 			throws ServiceException, InvalidMessagePassowrdException, MessageNotFoundException {
