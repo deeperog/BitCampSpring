@@ -28,5 +28,5 @@
 	
 	<li><a href="<%= request.getContextPath() %>/member/mypage">마이페이지</a></li>
 	<li><a href="<%= request.getContextPath() %>/member/memberList">회원 리스트</a></li>
-	<li><a href="<%= request.getContextPath() %>/guestbook/home">방명록</a></li>
+	<li><a href="<%= request.getContextPath() %>/guest/home">방명록</a></li>
 </ul>

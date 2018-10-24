@@ -6,25 +6,35 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.umki.member.dao.JdbcTemplateMemberDao;
+import com.umki.member.dao.MemberDaoInterface;
 import com.umki.member.model.MemberInfo;
 
 public class MemberUpdateService {
 	
+//	@Autowired
+//	JdbcTemplateMemberDao memberDao;
+	
 	@Autowired
-	JdbcTemplateMemberDao memberDao;
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	MemberDaoInterface memberDao;
 	
 	@Transactional
 	public MemberInfo getUpdateMemberInfo(String id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		MemberInfo memberInfo = memberDao.getMemberInfo(id);
+		
 		return memberInfo;
 	}
 	
 	@Transactional
-	public int updateMemberInfo(MemberInfo memberInfo, String id, HttpServletRequest request) throws SQLException, IllegalStateException, IOException {
+	public int updateMemberInfo(MemberInfo memberInfo, HttpServletRequest request) throws SQLException, IllegalStateException, IOException {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		// DB 저장용 파일 이름, 물리적 저장할때의 이름
 		String imgName = "";
 		// 물리적 저장 경로
@@ -42,7 +52,7 @@ public class MemberUpdateService {
 			memberInfo.setUserPhoto(imgName);
 		}
 		
-		int resultCnt = memberDao.updateMemberInfo(memberInfo, id);
+		int resultCnt = memberDao.updateMemberInfo(memberInfo);
 		
 		return resultCnt;
 	}

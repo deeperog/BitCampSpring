@@ -21,13 +21,13 @@
 
 		<hr>
 		<form method="post" enctype="multipart/form-data">
-		<input type="hidden" name="xid" value="${memberInfo.userId}">
+		<input type="hidden" name="userId" value="${memberInfo.userId}">
 		<input type="hidden" name="xphoto" value="${memberInfo.userPhoto}">
 		
 			<table>
 				<tr>
 					<td>아이디(이메일)</td>
-					<td><input type="text" name="userId" value="${memberInfo.userId}"></td>
+					<td>${memberInfo.userId}</td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>

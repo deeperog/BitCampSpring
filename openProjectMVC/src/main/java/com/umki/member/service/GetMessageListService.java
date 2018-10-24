@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.umki.member.dao.JdbcTemplateMemberDao;
+import com.umki.member.dao.MemberDaoInterface;
 import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.jdbc.JdbcUtil;
 import com.umki.member.model.Message;
@@ -15,12 +17,18 @@ import com.umki.member.model.MessageListView;
 
 public class GetMessageListService {
 	
+//	@Autowired
+//	JdbcTemplateMemberDao messageDao;
+	
 	@Autowired
-	JdbcTemplateMemberDao messageDao;
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	MemberDaoInterface messageDao;
 
 	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 
 	public MessageListView getMessageList(int pageNumber) throws ServiceException {
+		messageDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		Connection conn = null;
 		int currentPageNumber = pageNumber;
 		
@@ -35,7 +43,7 @@ public class GetMessageListService {
 			if (messageTotalCount > 0) {
 				firstRow = (pageNumber - 1) * MESSAGE_COUNT_PER_PAGE + 1;
 				endRow = firstRow + MESSAGE_COUNT_PER_PAGE - 1;
-				messageList = messageDao.selectList(firstRow, endRow);
+				messageList = messageDao.selectList(firstRow-1, 3);
 			} else {
 				currentPageNumber = 0;
 				messageList = Collections.emptyList();

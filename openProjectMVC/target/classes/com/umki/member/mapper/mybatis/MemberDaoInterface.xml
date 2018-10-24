@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umki.member.dao.MemberDaoInterface">
+
+	<insert id="insertMemberInfo"
+		parameterType="com.umki.member.model.MemberInfo"
+		useGeneratedKeys="true" keyProperty="idx">
+		insert into member (userid,
+		password, username, userphoto)
+		values (#{userId}, #{password},
+		#{userName}, #{userPhoto})
+	</insert>
+
+	<select id="getMemberInfo"
+		resultType="com.umki.member.model.MemberInfo">
+		select * from member where userid=#{id}
+	</select>
+
+	<select id="getAllMemberInfo"
+		resultType="com.umki.member.model.MemberInfo">
+		select * from member
+	</select>
+
+	<update id="updateMemberInfo"
+		parameterType="com.umki.member.model.MemberInfo">
+		update member set userid = #{userId}, password =
+		#{password}, username = #{userName}, userphoto = #{userPhoto} where
+		userid = #{userId}
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from member where
+		userid=#{id} and password=#{password}
+	</delete>
+
+	<delete id="delete1">
+		delete from guestbook_message where message_id =
+		#{id}
+	</delete>
+
+	<select id="select" resultType="com.umki.member.model.Message">
+		select * from guestbook_message
+		where message_id = #{id}
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from guestbook_message	
+	</select>
+	
+	<select id="selectList" resultType="com.umki.member.model.Message" parameterType="map">
+		select * from guestbook_message order by message_id desc limit #{firstRow}, #{endRow}
+	</select>
+	
+	<insert id="insert" parameterType="com.umki.member.model.Message">
+		insert into guestbook_message (guest_name, password, message) values (#{guestName}, #{password}, #{message})
+	</insert>
+</mapper>

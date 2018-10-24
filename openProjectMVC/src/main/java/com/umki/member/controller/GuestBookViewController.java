@@ -27,6 +27,7 @@ public class GuestBookViewController {
 			e.printStackTrace();
 		}
 		model.addAttribute("msg", message);
+		System.out.println(message);
 		return "guestbook/view";
 	}
 }

@@ -32,7 +32,7 @@ public class MemberUpdateController {
 
 	@RequestMapping(method = RequestMethod.POST)
 
-	public String update(MemberInfo memberInfo, @RequestParam("xid") String id, @RequestParam("xphoto") String photo, HttpServletRequest request) {
+	public String update(MemberInfo memberInfo, @RequestParam("xphoto") String photo, HttpServletRequest request) {
 		if(memberInfo.getPhotoFile().getOriginalFilename() == "") {
 			memberInfo.setUserPhoto(photo);			
 		}
@@ -40,7 +40,7 @@ public class MemberUpdateController {
 		String page = "member/regok";
 		int resultCnt = 0;
 		try {
-			resultCnt = service.updateMemberInfo(memberInfo, id, request);
+			resultCnt = service.updateMemberInfo(memberInfo, request);
 			if (resultCnt == 0) {
 				page = "member/regFail";
 			}

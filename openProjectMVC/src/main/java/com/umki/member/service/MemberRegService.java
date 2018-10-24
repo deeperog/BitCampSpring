@@ -8,28 +8,40 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.umki.member.dao.JdbcTemplateMemberDao;
 import com.umki.member.dao.MemberDao;
+import com.umki.member.dao.MemberDaoInterface;
+import com.umki.member.dao.MybatisMemberDao;
 import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.jdbc.JdbcUtil;
 import com.umki.member.model.MemberInfo;
 
 public class MemberRegService {
-	/*
-	 * @Autowired private MemberDao memberDao;
-	 */
+	
+//	@Autowired
+//	private MemberDao memberDao;
 
+//	@Autowired
+//	private JdbcTemplateMemberDao memberDao;
+	
+//	@Autowired
+//	private MybatisMemberDao memberDao;
+	
 	@Autowired
-	private JdbcTemplateMemberDao memberDao;
-
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	private MemberDaoInterface memberDao;
 
 	@Transactional
 	public int memberReg(MemberInfo memberInfo, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 
 //		conn = ConnectionProvider.getConnection();
 		int resultCnt = 0;

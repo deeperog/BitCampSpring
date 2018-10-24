@@ -23,6 +23,7 @@ public class MemberListController {
 		List<MemberInfo> results = listService.selectMemberInfo();   
 		modelAndView.addObject("list", results);
 		
+		
 		return modelAndView;
 	}
 	

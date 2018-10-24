@@ -66,6 +66,15 @@
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 
+	<!-- spring mybatis 연동 설정 -->
+	<beans:bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations"
+			value="classpath:com/umki/member/mapper/mybatis/*.xml" />
+	</beans:bean>
+
+
 	<!-- PlatformTransactionManager 빈 설정 -->
 	<beans:bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -80,15 +89,22 @@
 		class="org.springframework.jdbc.core.JdbcTemplate"
 		p:dataSource-ref="dataSource" />
 
+	<!-- SqlSessionTemplate 빈 등록 -->
+	<beans:bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0"
+			ref="sqlSessionFactory" />
+	</beans:bean>
+
+
+
 	<!-- MEMBER DAO 등록 -->
 	<beans:bean id="memberDao"
 		class="com.umki.member.dao.MemberDao" />
 	<beans:bean id="jdbcTemplateMemberDao"
 		class="com.umki.member.dao.JdbcTemplateMemberDao" />
-		
-		
-	<beans:bean id="messageDao" class="com.umki.member.dao.MessageDao"/>
-	<!-- <beans:bean id="jdbcTemplateMemberDao" class = "com.umki.member.dao.JdbcTemplateMemberDao" /> -->
+	<beans:bean id="mybatisMemberDao"
+		class="com.umki.member.dao.MybatisMemberDao"></beans:bean>
 
 	<!-- SERVICE 등록 -->
 	<beans:bean id="memberRegService"
@@ -101,10 +117,14 @@
 		class="com.umki.member.service.MemberUpdateService" />
 	<beans:bean id="memberDeleteService"
 		class="com.umki.member.service.MemberDeleteService" />
-		
-<!-- 	방명록    -->
-	<beans:bean id="getMessageListService" class="com.umki.member.service.GetMessageListService"/>
-	<beans:bean id="writeMessageService" class="com.umki.member.service.WriteMessageService"/>
-	<beans:bean id="deleteMessageService" class="com.umki.member.service.DeleteMessageService"/>
-	<beans:bean id="getViewService" class="com.umki.member.service.GetViewService" />
+
+	<!-- 방명록 -->
+	<beans:bean id="getMessageListService"
+		class="com.umki.member.service.GetMessageListService" />
+	<beans:bean id="writeMessageService"
+		class="com.umki.member.service.WriteMessageService" />
+	<beans:bean id="deleteMessageService"
+		class="com.umki.member.service.DeleteMessageService" />
+	<beans:bean id="getViewService"
+		class="com.umki.member.service.GetViewService" />
 </beans:beans>

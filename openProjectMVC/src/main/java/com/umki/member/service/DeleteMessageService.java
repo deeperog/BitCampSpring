@@ -3,19 +3,29 @@ package com.umki.member.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.umki.member.dao.JdbcTemplateMemberDao;
+import com.umki.member.dao.MemberDaoInterface;
 import com.umki.member.jdbc.ConnectionProvider;
 import com.umki.member.jdbc.JdbcUtil;
 import com.umki.member.model.Message;
 
 public class DeleteMessageService {
+//	@Autowired
+//	JdbcTemplateMemberDao messageDao;
+	
+	
+	
 	@Autowired
-	JdbcTemplateMemberDao messageDao;
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	MemberDaoInterface messageDao;
 
 	public void deleteMessage(int messageId, String password)
 			throws ServiceException, InvalidMessagePassowrdException, MessageNotFoundException {
+		messageDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
@@ -30,7 +40,7 @@ public class DeleteMessageService {
 			if (!message.getPassword().equals(password)) {
 				throw new InvalidMessagePassowrdException();
 			}
-			messageDao.delete(messageId);
+			messageDao.delete1(messageId);
 			conn.commit();
 		} catch (SQLException ex) {
 			JdbcUtil.rollback(conn);

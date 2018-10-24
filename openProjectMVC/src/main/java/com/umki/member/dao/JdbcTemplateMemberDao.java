@@ -89,6 +89,7 @@ public class JdbcTemplateMemberDao {
 				return memberInfo;
 			}
 		});
+		
 		return results;
 	}
 
@@ -169,7 +170,7 @@ public class JdbcTemplateMemberDao {
 				return message;
 
 			}
-		}, endRow, 3);
+		}, firstRow-1, 3);
 
 		return results;
 

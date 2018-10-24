@@ -2,19 +2,33 @@ package com.umki.member.service;
 
 import java.sql.SQLException;
 import javax.servlet.http.HttpSession;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.umki.member.dao.JdbcTemplateMemberDao;
+import com.umki.member.dao.MemberDaoInterface;
+import com.umki.member.dao.MybatisMemberDao;
 import com.umki.member.model.MemberInfo;
 
 public class MemberLoginService {
 
+//	@Autowired
+//	private JdbcTemplateMemberDao memberDao;
+	
+//	@Autowired
+//	private MybatisMemberDao memberDao;
+	
 	@Autowired
-	private JdbcTemplateMemberDao memberDao;
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	private MemberDaoInterface memberDao;
+	
 	@Transactional
 	public boolean login(String id, String pw, HttpSession session) throws SQLException {
-
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 
 		boolean result = false;
 

@@ -1,21 +1,26 @@
 package com.umki.member.service;
 
 import java.util.List;
-
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.umki.member.dao.JdbcTemplateMemberDao;
+import com.umki.member.dao.MemberDaoInterface;
 import com.umki.member.model.MemberInfo;
 
 public class MemberListService {
 	
+//	@Autowired
+//	private JdbcTemplateMemberDao memberDao;
+	
 	@Autowired
-	private JdbcTemplateMemberDao memberDao;
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	private MemberDaoInterface memberDao;
 
 	@Transactional
 	public List<MemberInfo> selectMemberInfo() {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		
 		List<MemberInfo> results = memberDao.getAllMemberInfo();
 		
 		return results;
